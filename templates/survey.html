@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+  <h2>Exit Survey</h2>
+
+
+<form action="{{ survey }}?gid={{gid}}" method=post data-ajax="false" id="survey">
+  {{ form.hidden_tag() }}
+
+  {% for field in form if field.type == 'RadioField' %}
+
+
+{{ field.label(style="font-size:2em") }}
+{% for message in field.errors %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+
+
+  <fieldset data-role="controlgroup" data-type="horizontal">
+      {% for subfield in field %}
+  {{ subfield }}{{ subfield.label }}
+      {% endfor %}
+    </fieldset>
+{% endfor %}   
+  
+<!--  {% for field in form if field.type == 'RadioField' %}
+  <h3>{{ field.label }}</h3>
+  <table id="likert">
+    <tr>
+    {% for subfield in field %}
+        
+            <td>{{ subfield }}</td>
+    
+    {% endfor %}
+    </tr>
+  
+    <tr>
+    {% for subfield in field %}
+        
+          <td>{{ subfield.label }}</td>
+    
+    {% endfor %}
+    </tr>
+   </table>    
+    
+{% endfor %}
+
+<h3>{{form.comments.label}}</h3>
+<div style="text-align:center">
+{{form.comments(cols="65", rows="10")}}
+</div>
+
+-->
+
+{{ form.submit }}
+</form>
+
+{% endblock %}

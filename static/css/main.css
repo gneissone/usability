@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+-
+}
+ 
+/*
+ * Create dark grey header with a white logo
+ */
+  
+header {
+  background-color: #2B2B2B;
+  height: 3em;
+  width: 100%;
+  opacity: .9;
+  margin-bottom: .1em;
+}
+ 
+header h1.logo {
+  margin: 0;
+  font-size: 2.5em;
+  padding: 0 .8em;
+  color: #B22222;
+  text-transform: uppercase;
+  float: left;
+  text-shadow:0 0 0;
+}
+ 
+header h1.logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+ 
+.ui-controlgroup-controls {
+  padding-bottom: 2em;
+}
+
+/* Message flashing */
+.flash {
+  background-color: #FBB0B0;
+  padding: 10px;
+  width: 400px;
+}
+
+/*.ui-controlgroup-horizontal .ui-controlgroup-controls{
+    width:100% !important;
+}
+.home-radio-button>.ui-radio {
+    width:16% !important;
+}*/
+
+.ui-radio .ui-btn {
+  text-align:center !important;
+  
+}
+
+#stopwatch {
+  display:none; //do not display stopwatch on page load
+}

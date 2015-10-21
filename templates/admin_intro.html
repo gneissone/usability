@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+
+
+<h2>Introduction</h2>
+<h3>Hi {{name}}! Please read this to the test taker:</h3>
+<p id="intro">
+  "I’m going to read from this sheet to give you the introduction, first so I don’t forget anything, and second because we want to give the same introduction to every tester, which helps to give us more reliable feedback. This is a test of our VIVO system, which is designed to semantically connect the user to research output such as papers, datasets, instrumentation, facilities, research personnel, etc.  To accomplish these connections, we are _____________________. Our intention is _________________. Our goal is to facilitate the discovery of all research output, that may otherwise be challenging to find, in an effort to both build the research network and connections and to enable reproducibility. Your participation will illuminate the strength of our semantic connections and whether discovery is intuitive. Thank you for helping us out." <br><br>(Page 1 of ?)
+</p>
+
+<p id="intro-2">
+  "We will ask you to test our interface as well as ask you a couple of questions about your experience. We will give you X tasks to complete and we will be observing and taking notes while you complete the tasks.  Please be assured that we are testing our application and not your performance. Our goal right now is to improve the interface based on the test. Any feedback you can give us will help us. Before we start, let me show you how to the usability survey form."<br><br>
+  <i>Open the user survey form on the subject's computer. Allow them to fill out the contact information and read the privacy statement if they wish.</i>
+  <br><br>(Page 2 of 3)
+</p>
+
+<p id="intro-3">
+"Now we will begin the test. You will find a task described at the top of the page. You may ask me questions about the task, but I won't give you hints on how to accomplish the task. Please begin when you are ready." <br><br>(Page 3 of 3)
+</p>
+
+<span id="next" class="button" style="font-size: 1.5em"><a href="#">Next</a></span>
+<span id="previous" class="button" style="font-size: 1.5em"><a href="#">Previous</a> - </span>
+<span id="next-2" class="button" style="font-size: 1.5em"><a href="#">Next</a></span>
+<span id="previous-2" class="button" style="font-size: 1.5em"><a href="#">Previous</a> - </span>
+<span id="next-3" class="button" style="font-size: 1.5em"><a href="{{url_for('adminTask', task_num=1, gid=gid) }}" data-ajax="false">Next</a></span>
+
+
+<script>
+$(document).ready(function () {
+
+    $("p").hide();
+    $("#intro").toggle();
+    $("#next-2").toggle();
+    $("#previous").toggle();
+    $("#previous-2").toggle();
+    $("#next-3").toggle();
+
+    $("#next").click(function(){
+         $("#intro").toggle();
+         $("#intro-2").toggle();
+         $("#next").toggle();
+         $("#previous").toggle();
+         $("#next-2").toggle();
+    });
+    
+    $("#previous").click(function(){
+         $("#intro").toggle();
+         $("#intro-2").toggle();
+         $("#next").toggle();
+         $("#previous").toggle();
+         $("#next-2").toggle();
+    });
+    
+    $("#previous-2").click(function(){
+      $("#intro-2").toggle();
+      $("#intro-3").toggle();
+      $("#previous").toggle();
+      $("#previous-2").toggle();
+      $("#next-2").toggle();
+      $("#next-3").toggle();
+    });
+    
+    
+    
+    $("#next-2").click(function(){
+         $("#intro-2").toggle();
+         $("#intro-3").toggle();
+         $("#previous").toggle();
+         $("#previous-2").toggle();
+         $("#next-2").toggle();
+         $("#next-3").toggle();
+    });
+
+});
+</script> 
+
+
+{% endblock %}

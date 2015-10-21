@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+<h2>Connect UNAVCO Usability Survey</h2>
+<p>Thank you for participating. Here is some important information:</p>
+
+<p>This usability test is being conducted as part of the research project funded by the US National Science Foundation (NSF awards #1440293, 1440213, 1440181), titled "Enabling Scientific Collaboration and Discovery through Semantic Connections". Your participation is voluntary. None of your responses will be shared/distributed outside of our project team. You have the option of not answering any questions and you may stop at any time. This usability test has been approved by the Human Subjects Committee of the University Corporation for Atmospheric Research (UCAR). For questions, please contact the project PI, Matthew Mayernik (mayernik@ucar.edu), or the UCAR Human Subjects Committee (hsc@ucar.edu).</p>
+
+  {% for message in form.name.errors %}
+  <div class="flash">{{ message }}</div>
+  {% endfor %}
+  
+  {% for message in form.email.errors %}
+  <div class="flash">{{ message }}</div>
+  {% endfor %}
+  
+  {% for message in form.position.errors %}
+  <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+<form action="{{ url_for('home') }}" method=post data-ajax="false">
+  {{ form.hidden_tag() }}
+
+  {{ form.name.label(style="font-size:1.5em") }}
+  {{ form.name }}
+
+  {{ form.email.label(style="font-size:1.5em") }}
+  {{ form.email }}
+  
+  {{ form.position.label(style="font-size:1.5em")}}
+
+{% set buttonWidth = 'width:' ~ ((100/form.position.choices|length)|round(0,'floor')|int) ~ '%' %}
+   <fieldset data-role="controlgroup" data-type="horizontal" width=100%>
+         {% for subfield in form.position %}
+<!--    {{ subfield(style=buttonWidth) }}{{ subfield.label(style=buttonWidth) }} -->
+{{ subfield }}{{ subfield.label }}
+        {% endfor %}
+      </fieldset>
+
+
+<!--  {{ form.position.label(style="font-size:1.5em") }}
+  
+  <table id="position">
+  <tr>
+  {% for subfield in form.position %}
+      
+          <td width={{(100/form.position.choices|length)|round(0,'floor')|int}}%>{{ subfield }}</td>
+  
+  {% endfor %}
+  </tr>
+
+  <tr>
+  {% for subfield in form.position %}
+      
+        <td>{{ subfield.label }}</td>
+  
+  {% endfor %}
+  </tr>
+ </table>
+ 
+ -->
+
+  {{ form.submit }}
+</form>
+
+{% endblock %}

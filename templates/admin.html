@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+<h2>Connect UNAVCO Usability Survey</h2>
+<p>This is the landing page for test administrators. Fuggeht about it.</p>
+
+  {% for message in form.name.errors %}
+  <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+<form action="{{ url_for('admin') }}" method=post data-ajax="false">
+  {{ form.hidden_tag() }}
+
+  {{ form.name.label(style="font-size:2em") }}
+  {{ form.name }}
+
+
+  {{ form.submit }}
+</form>
+
+
+{% endblock %}

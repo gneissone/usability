@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+  <h2>Task #{{ task_num }}</h2>
+
+   <h3>{{ task }}</h3>
+    {% for message in form.method.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    
+    
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div id=stopwatch>
+  <h3><span id="runner"></span> seconds</h3>
+
+  <fieldset data-role="controlgroup" data-type="horizontal" width=100%>
+    <label for="start">start/stop</label>
+    <input id="start" type="button" value="Start/Stop Timer">
+    <label for="reset">reset</label>
+    <input id="reset" type="button" value="Reset">
+  </fieldset>
+</div>
+
+    Preferred method: {{ method }}<br><br>
+   
+  <form action="{{ task_num }}?gid={{gid}}" method=post data-ajax="false" name="taskform" onsubmit="get_action(this);">
+    {{ form.hidden_tag() }}
+
+    
+    {{ form.method.label }}
+    {{ form.method }}
+    
+    {{ form.comments.label }}
+    {{ form.comments }}
+    
+    {{ form.completed.label }}
+    {{ form.completed }}
+                
+ 
+    {{ form.submit }}
+  </form>
+
+
+  <script src="{{ url_for('static', filename='lib/jquery.runner-min.js') }}"></script>
+  <script>
+
+  function get_action(form) {
+      $('#runner').runner('stop');
+      var info = $('#runner').runner('info')['formattedTime'];
+      form.action = '{{ task_num }}?gid={{gid}}&time='+info;
+  }
+
+  window.onload = function() {
+    $('#runner').runner({
+        milliseconds:false
+    });
+    console.log('hiiiiii')
+
+    $('#start').click(function() {
+        $('#runner').runner('toggle');
+    });
+    $('#reset').click(function() {
+        $('#runner').runner('reset',true);
+    });
+    
+    $("#stopwatch").show();
+  }
+
+  </script>
+
+
+{% endblock %}

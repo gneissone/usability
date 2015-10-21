@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+  <h2>Task #{{ task_num }}</h2>
+  {% if success %}
+  <p>Thanks for filling out the survey.</p>
+  
+  {% else %}
+   <h3>{{ task }}</h3>
+    {% for message in form.likert.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    
+    
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    
+   
+  <form action="{{ task_num }}?gid={{gid}}" method=post data-ajax="false">
+    {{ form.hidden_tag() }}
+
+    
+    {{ form.likert.label }}
+    <fieldset data-role="controlgroup" data-type="horizontal" width=100%>
+          {% for subfield in form.likert %}
+ <!--    {{ subfield(style=buttonWidth) }}{{ subfield.label(style=buttonWidth) }} -->
+ {{ subfield }}{{ subfield.label }}
+         {% endfor %}
+       </fieldset>
+                
+ 
+    {{ form.submit }}
+  </form>
+  {% endif %}
+{% endblock %}
