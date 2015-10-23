@@ -15,7 +15,7 @@ class Likert(Form):
       
 class agreeLikert(Form):
     def getQuestions():
-        questions=['The website design is visually appealing.','Site navigation was logically organized','Site pages loaded quickly']
+        questions=['The website design is visually appealing.','Site navigation was logically organized','Site pages load quickly']
         return questions
         
     questions = getQuestions()

@@ -25,7 +25,7 @@ credentials = credentials.create_scoped(['https://spreadsheets.google.com/feeds'
 #Subject-facing questions, one per page
 @app.route('/<task_num>', methods=['GET', 'POST'])
 def task(task_num):
-
+  subtitle = "Task #"+task_num
   gid=request.args.get('gid') #Spreadsheet row we're working in
   if not gid:
       time = str(datetime.now())
@@ -57,16 +57,16 @@ def task(task_num):
       return redirect(url_for('exitSurvey', gid=gid))
       
     else:
-      return render_template('task.html', form=form, task_num=task_num, task=task, gid=gid) 
+      return render_template('task.html', form=form, task_num=task_num, task=task, gid=gid, subtitle=subtitle) 
     
   elif request.method == 'GET':
     (task,method,total_tasks) = getTask(task_num)
-    return render_template('task.html', form=form, task=task, task_num=task_num, gid=gid)
+    return render_template('task.html', form=form, task=task, task_num=task_num, gid=gid, subtitle=subtitle)
     
 #Exit survey, all questions on one page    
 @app.route('/survey', methods=['GET', 'POST'])
 def exitSurvey():
-
+  subtitle = "Exit Survey"
   gid=request.args.get('gid')
   if not gid:
       time = str(datetime.now())
@@ -90,14 +90,15 @@ def exitSurvey():
       return redirect(url_for('thankyou'))
       
     else:
-      return render_template('survey.html', form=form, gid=gid) 
+      return render_template('survey.html', form=form, gid=gid, subtitle=subtitle) 
     
   elif request.method == 'GET':
-    return render_template('survey.html', form=form, gid=gid)
+    return render_template('survey.html', form=form, gid=gid, subtitle=subtitle)
 
 @app.route('/thankyou')
 def thankyou():
-    return render_template('thankyou.html')
+    subtitle="Thank You"
+    return render_template('thankyou.html', subtitle=subtitle)
 
 #Home page, collect contact information
 @app.route('/', methods=['GET', 'POST'])
@@ -149,6 +150,7 @@ def admin():
 #Test administrator script
 @app.route('/admin/intro')
 def adminIntro():
+    subtitle="Intro"
     gid=request.args.get('gid')
     if not gid:
       dtime = str(datetime.now())
@@ -159,12 +161,12 @@ def adminIntro():
       gid=wks.row_count
       flash('No user ID detected. Results will be added to a new row.')
     name=request.args.get('name')
-    return render_template('admin_intro.html', gid=gid, name=name)     
+    return render_template('admin_intro.html', gid=gid, name=name, subtitle=subtitle)     
         
 #Test administrator task observations, one task per page
 @app.route('/admin/<task_num>', methods=['GET', 'POST'])
 def adminTask(task_num):
-
+  subtitle = "Task #"+task_num
   gid=request.args.get('gid')
   time=request.args.get('time')
   if not gid:
@@ -218,15 +220,16 @@ def adminTask(task_num):
       return redirect(url_for('adminThankYou', gid=gid))
       
     else:
-      return render_template('admin_task.html', form=form, task_num=task_num, task=task, gid=gid, method=method) 
+      return render_template('admin_task.html', form=form, task_num=task_num, task=task, gid=gid, method=method, subtitle=subtitle) 
     
   elif request.method == 'GET':
     (task,method,total_tasks) = getTask(task_num)
-    return render_template('admin_task.html', form=form, task=task, task_num=task_num, gid=gid, method=method)
+    return render_template('admin_task.html', form=form, task=task, task_num=task_num, gid=gid, method=method, subtitle=subtitle)
 
 @app.route('/admin_thankyou')
 def adminThankYou():
-    return render_template('admin_thankyou.html')
+    subtitle = "Thank You"
+    return render_template('admin_thankyou.html', subtitle=subtitle)
 
 if __name__ == '__main__':
   app.run()
