@@ -17,6 +17,10 @@
   {% for message in form.position.errors %}
   <div class="flash">{{ message }}</div>
   {% endfor %}
+  
+  {% for message in form.years.errors %}
+  <div class="flash">{{ message }}</div>
+  {% endfor %}
 
 <form action="{{ url_for('home') }}" method=post data-ajax="false">
   {{ form.hidden_tag() }}
@@ -29,36 +33,16 @@
   
   {{ form.position.label(style="font-size:1.5em")}}
 
-{% set buttonWidth = 'width:' ~ ((100/form.position.choices|length)|round(0,'floor')|int) ~ '%' %}
+{% set buttonWidth = 'width:' ~ ((100/form.position.choices|length)|round(0,'floor')|int) ~ '%' %} 
    <fieldset data-role="controlgroup" data-type="horizontal" width=100%>
          {% for subfield in form.position %}
-<!--    {{ subfield(style=buttonWidth) }}{{ subfield.label(style=buttonWidth) }} -->
 {{ subfield }}{{ subfield.label }}
         {% endfor %}
-      </fieldset>
-
-
-<!--  {{ form.position.label(style="font-size:1.5em") }}
-  
-  <table id="position">
-  <tr>
-  {% for subfield in form.position %}
-      
-          <td width={{(100/form.position.choices|length)|round(0,'floor')|int}}%>{{ subfield }}</td>
-  
-  {% endfor %}
-  </tr>
-
-  <tr>
-  {% for subfield in form.position %}
-      
-        <td>{{ subfield.label }}</td>
-  
-  {% endfor %}
-  </tr>
- </table>
- 
- -->
+      </fieldset> 
+      {{ form.years.label(style="font-size:1.5em") }}
+         <fieldset data-role="controlgroup" data-type="horizontal">
+      {{ form.years }}
+</fieldset>
 
   {{ form.submit }}
 </form>

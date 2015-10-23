@@ -4,20 +4,20 @@
   <h2>Task #{{ task_num }}</h2>
 
    <h3>{{ task }}</h3>
+   
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+   <div class=flash>
+   {% for message in messages %}
+     {{ message }}
+   {% endfor %}
+   </div>
+   {% endif %}
+   {% endwith %}
+   
     {% for message in form.method.errors %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
-    
-    
-    {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
 
 <div id=stopwatch>
   <h3><span id="runner"></span> seconds</h3>

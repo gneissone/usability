@@ -34,14 +34,18 @@ header h1.logo:hover {
 }
  
 .ui-controlgroup-controls {
-  padding-bottom: 2em;
+  padding-bottom: 1em;
+}
+
+.ui-input-btn {
+  margin-top: 2em;
 }
 
 /* Message flashing */
 .flash {
   background-color: #FBB0B0;
   padding: 10px;
-  width: 400px;
+  width: 28em;
 }
 
 /*.ui-controlgroup-horizontal .ui-controlgroup-controls{

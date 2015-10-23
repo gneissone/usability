@@ -2,21 +2,32 @@
  
 {% block content %}
 
-
 <h2>Introduction</h2>
-<h3>Hi {{name}}! Please read this to the test taker:</h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class=flash>
+{% for message in messages %}
+  {{ message }}
+{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<h3> {% if name %}Hi {{name}}! {% endif %}Please read this to the test taker:</h3>
 <p id="intro">
-  "I’m going to read from this sheet to give you the introduction, first so I don’t forget anything, and second because we want to give the same introduction to every tester, which helps to give us more reliable feedback. This is a test of our VIVO system, which is designed to semantically connect the user to research output such as papers, datasets, instrumentation, facilities, research personnel, etc.  To accomplish these connections, we are _____________________. Our intention is _________________. Our goal is to facilitate the discovery of all research output, that may otherwise be challenging to find, in an effort to both build the research network and connections and to enable reproducibility. Your participation will illuminate the strength of our semantic connections and whether discovery is intuitive. Thank you for helping us out." <br><br>(Page 1 of ?)
+  "I’m going to read from this script, first so I don’t forget anything, and second because we want to give the same introduction to every tester, which helps us get more reliable feedback. This is a test of a new website, Connect UNAVCO, which is designed to connect geodesy-related topics like people and research. Our goal is to facilitate the discovery of research output and connections that may otherwise be challenging to find. Your participation will illuminate the strength of our connections and whether discovery is intuitive. Thank you for helping us out." <br><br>(Page 1 of 3)
 </p>
 
 <p id="intro-2">
-  "We will ask you to test our interface as well as ask you a couple of questions about your experience. We will give you X tasks to complete and we will be observing and taking notes while you complete the tasks.  Please be assured that we are testing our application and not your performance. Our goal right now is to improve the interface based on the test. Any feedback you can give us will help us. Before we start, let me show you how to the usability survey form."<br><br>
-  <i>Open the user survey form on the subject's computer. Allow them to fill out the contact information and read the privacy statement if they wish.</i>
+  "We will be asking you to test our interface answer a couple questions about your experience. We will give you 3 tasks to complete. We will observe and take notes while you complete the tasks.  Please be assured that we are testing our application and not your performance. Our objective is to improve the interface based on the test. Before we start, let me show you the survey form."<br><br>
+  <i>Open the user survey form on the subject's computer (connect.unavco.org/survey). Allow them to fill out the contact information and read the privacy statement if they wish. Click next but don't allow them to start the task.</i>
   <br><br>(Page 2 of 3)
 </p>
 
 <p id="intro-3">
-"Now we will begin the test. You will find a task described at the top of the page. You may ask me questions about the task, but I won't give you hints on how to accomplish the task. Please begin when you are ready." <br><br>(Page 3 of 3)
+"You will find a task described at the top of the page. You may ask me questions, but I can't give you hints on how to accomplish the task. Please think out loud: describe what you're trying to do, expecting to see, or what you're thinking. Please let me know when you have finished the task. Do you have any questions before we start?"<br><br>
+<i>Answer their questions, then click 'Next' to begin Task 1. Feel free to stop them after a few minutes if they aren't making progress. Make a note and move on to the next task.</i><br><br>(Page 3 of 3)
 </p>
 
 <span id="next" class="button" style="font-size: 1.5em"><a href="#">Next</a></span>

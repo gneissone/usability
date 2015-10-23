@@ -13,14 +13,12 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg', silent=True)
 
 #set up client key and open the spreadsheet
-#from oauth2client.client import SignedJwtAssertionCredentials
 from oauth2client.client import GoogleCredentials
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "static/google.json"
 
 json_key = json.load(open('static/google.json'))
 scope = ['https://spreadsheets.google.com/feeds']
 
-#credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 credentials = GoogleCredentials.get_application_default()
 credentials = credentials.create_scoped(['https://spreadsheets.google.com/feeds'])
  
@@ -28,9 +26,14 @@ credentials = credentials.create_scoped(['https://spreadsheets.google.com/feeds'
 @app.route('/<task_num>', methods=['GET', 'POST'])
 def task(task_num):
 
-  gid=request.args.get('gid')
+  gid=request.args.get('gid') #Spreadsheet row we're working in
   if not gid:
-      return redirect(url_for('home'))
+      time = str(datetime.now())
+      gc = gspread.authorize(credentials)
+      wks = gc.open("Usability Testing").sheet1
+      wks.append_row([time])
+      gid=wks.row_count
+      flash('No user ID detected. Results will be added to a new row.')
       
   form = Likert()
   task_num=int(task_num)
@@ -66,8 +69,13 @@ def exitSurvey():
 
   gid=request.args.get('gid')
   if not gid:
-      return redirect(url_for('home'))
-      
+      time = str(datetime.now())
+      gc = gspread.authorize(credentials)
+      wks = gc.open("Usability Testing").sheet1
+      wks.append_row([time])
+      gid=wks.row_count
+      flash('No user ID detected. Results will be added to a new row.')
+          
   form = agreeLikert()
 
   if request.method == 'POST':
@@ -138,21 +146,36 @@ def admin():
     elif request.method == 'GET':
         return render_template('admin.html', form=form)   
 
+#Test administrator script
 @app.route('/admin/intro')
 def adminIntro():
     gid=request.args.get('gid')
+    if not gid:
+      dtime = str(datetime.now())
+      gc = gspread.authorize(credentials)
+      works = gc.open("Usability Testing")
+      wks = works.worksheet('Sheet2')
+      wks.append_row([dtime])
+      gid=wks.row_count
+      flash('No user ID detected. Results will be added to a new row.')
     name=request.args.get('name')
     return render_template('admin_intro.html', gid=gid, name=name)     
         
-         
+#Test administrator task observations, one task per page
 @app.route('/admin/<task_num>', methods=['GET', 'POST'])
 def adminTask(task_num):
 
   gid=request.args.get('gid')
   time=request.args.get('time')
   if not gid:
-      return redirect(url_for('home'))
-      
+      dtime = str(datetime.now())
+      gc = gspread.authorize(credentials)
+      works = gc.open("Usability Testing")
+      wks = works.worksheet('Sheet2')
+      wks.append_row([dtime])
+      gid=wks.row_count
+      flash('No user ID detected. Results will be added to a new row.')
+          
   form = adminTaskForm()
   task_num=int(task_num)
   (task,method,total_tasks) = getTask(task_num)
