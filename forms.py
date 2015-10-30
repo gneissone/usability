@@ -26,7 +26,7 @@ class agreeLikert(Form):
     submit = SubmitField("Finish")
 
 def getTask(task_num):
-    tasks=['Find the full list of UNAVCO member institutions.','Find a list of people with expertise in metadata standards.','Find a grant associated with PoleNet. How many total PoleNet grants are in the system?']
+    tasks=['Find the full list of UNAVCO member institutions.','Find a list of people with expertise in metadata standards.','Find a grant associated with POLENET. How many total POLENET grants are in the system?']
     methods=["Either click 'View all' link on home page or go to UNAVCO page by clicking link beneath photo or clicking Organizations > Consortium > UNAVCO","Search for metadata standards or click on Research > Concepts > Metadata Standards","Search for PoleNet, optionally limit search to 'Research' and 'Grants' to get number"]
     task_num-=1
     return (tasks[task_num],methods[task_num],len(tasks))

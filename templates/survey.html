@@ -34,34 +34,12 @@
     </fieldset>
 {% endfor %}   
   
-<!--  {% for field in form if field.type == 'RadioField' %}
-  <h3>{{ field.label }}</h3>
-  <table id="likert">
-    <tr>
-    {% for subfield in field %}
-        
-            <td>{{ subfield }}</td>
-    
-    {% endfor %}
-    </tr>
-  
-    <tr>
-    {% for subfield in field %}
-        
-          <td>{{ subfield.label }}</td>
-    
-    {% endfor %}
-    </tr>
-   </table>    
-    
-{% endfor %}
-
 <h3>{{form.comments.label}}</h3>
 <div style="text-align:center">
 {{form.comments(cols="65", rows="10")}}
 </div>
 
--->
+
 
 {{ form.submit }}
 </form>
