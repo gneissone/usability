@@ -2,6 +2,15 @@
  
 {% block content %}
 <h2>Connect UNAVCO Usability Survey</h2>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class=flash>
+{% for message in messages %}
+  {{ message }}
+{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 <p>Thank you for participating. Here is some important information:</p>
 
 <p>This usability test is being conducted as part of the research project funded by the US National Science Foundation (NSF awards #1440293, 1440213, 1440181), titled "Enabling Scientific Collaboration and Discovery through Semantic Connections". Your participation is voluntary. None of your responses will be shared/distributed outside of our project team. You have the option of not answering any questions and you may stop at any time. This usability test has been approved by the Human Subjects Committee of the University Corporation for Atmospheric Research (UCAR). For questions, please contact the project PI, Matthew Mayernik (mayernik@ucar.edu), or the UCAR Human Subjects Committee (hsc@ucar.edu).</p>

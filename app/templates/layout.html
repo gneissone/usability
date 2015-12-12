@@ -2,8 +2,10 @@
 <html>
   <head>
     <title>{% if subtitle %}{{subtitle}} - {% endif %}Connect UNAVCO Usability Survey</title>    
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+	<script src="{{ url_for('static', filename='lib/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/jquery.mobile-1.4.5.min.js') }}"></script>
+
+    
   <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mobile-1.4.5.min.css') }}"> 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> 
 
@@ -16,6 +18,13 @@
         <h1 class="logo">UNAVCO</h1>
 
       </div>
+      <div class="toggle">
+        <label for="toggle"></label>
+        <select name="toggle" id="toggle" data-role="slider" data-theme="b">
+          <option value="False" {{"selected" if online==True}}>Sync</option>
+          <option value="True" {{"selected" if online!=True}}>Sync</option>
+        </select> 
+      </div>
     </header>
      
     <div class="container" style="padding: 2em 2em 2em 2em ">
@@ -23,6 +32,14 @@
       {% endblock %}
     </div>
 
-
+<script type="text/javascript">
+$( "#toggle" ).on( "slidestop", function(e) {
+  $.post("/", { online: $(this).val() } );
+  console.log($(this).val());
+    
+    
+});
+</script>
+$.post("/1", { offline: $(this).val() } );
   </body>
 </html>
